@@ -1,0 +1,1 @@
+create table categories(node_id int auto_increment primary key, name varchar(40), parent_id int);
