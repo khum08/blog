@@ -1,5 +1,7 @@
 package com.yzk.controller;
 
+import com.yzk.model.Response;
+import com.yzk.util.ResponseUtil;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -8,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     @PostMapping("/add")
-    public void add(String name, String parent){
-        System.out.print(name +" and "+ parent);
+    public Response add(String name, String parent){
+        return ResponseUtil.success(name +" and "+ parent);
     }
 
     @GetMapping("/remove")
-    public void remove(@RequestParam String name){
-        System.out.print(name);
+    public Response remove(@RequestParam String name){
+        return ResponseUtil.success(name);
     }
 
 

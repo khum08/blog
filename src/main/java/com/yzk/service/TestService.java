@@ -1,7 +1,7 @@
 package com.yzk.service;
 
 import com.yzk.mapper.TestMapper;
-import com.yzk.model.Response.Test;
+import com.yzk.model.response.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 public class TestService {
 
     @Autowired
-    TestMapper testMapper;
-
+    private TestMapper testMapper;
 
     public Test test(){
         return testMapper.selectTest();
