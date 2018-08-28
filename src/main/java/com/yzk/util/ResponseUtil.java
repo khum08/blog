@@ -26,7 +26,6 @@ public class ResponseUtil {
 
     /**
      * 请求成功
-     * @param data
      * @return
      */
     public static Response success (){
@@ -63,7 +62,7 @@ public class ResponseUtil {
     /**
      * 请求失败
      *
-     * @param code
+     * @param status
      * @param message
      * @return
      */
