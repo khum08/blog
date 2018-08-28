@@ -1,6 +1,7 @@
 package com.yzk.controller;
 
 import com.yzk.service.TestService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ public class TestController {
     @Autowired
     TestService testService;
 
-    @GetMapping("/test")
+    @GetMapping("/")
     public String test(){
         return "hello world";
     }
@@ -21,6 +22,11 @@ public class TestController {
     @GetMapping("/test/")
     public String test2(){
         return testService.test().toString();
+    }
+
+    @GetMapping("/account")
+    public String test3(){
+        return "hello world";
     }
 
 

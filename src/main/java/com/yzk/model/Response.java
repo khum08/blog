@@ -4,7 +4,6 @@ package com.yzk.model;
  * 所有请求响应的封装类
  *
  * @author khum
- * @param <T>
  */
 public class Response {
 

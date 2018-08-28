@@ -1,1 +1,3 @@
+create table test(id int auto_increment primary key, str varchar(40));
+insert into test(str) values("yzk");
 create table categories(node_id int auto_increment primary key, name varchar(40), parent_id int);
