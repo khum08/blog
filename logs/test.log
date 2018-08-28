@@ -57,3 +57,111 @@
 2018-08-28 15:03:31.088 DEBUG 6080 --- [http-nio-8000-exec-2] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
 2018-08-28 15:03:31.089 DEBUG 6080 --- [http-nio-8000-exec-2] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
 2018-08-28 15:03:31.089 DEBUG 6080 --- [http-nio-8000-exec-2] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2018-08-28 16:33:15.008 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 1 of 13 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2018-08-28 16:33:15.017 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 2 of 13 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2018-08-28 16:33:15.017 DEBUG 6080 --- [http-nio-8000-exec-3] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2018-08-28 16:33:15.017 DEBUG 6080 --- [http-nio-8000-exec-3] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2018-08-28 16:33:15.018 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 3 of 13 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2018-08-28 16:33:15.020 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 4 of 13 in additional filter chain; firing Filter: 'CsrfFilter'
+2018-08-28 16:33:15.036 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 5 of 13 in additional filter chain; firing Filter: 'LogoutFilter'
+2018-08-28 16:33:15.036 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /test/' doesn't match 'POST /logout
+2018-08-28 16:33:15.036 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 6 of 13 in additional filter chain; firing Filter: 'UsernamePasswordAuthenticationFilter'
+2018-08-28 16:33:15.036 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /test/' doesn't match 'POST /login
+2018-08-28 16:33:15.037 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 7 of 13 in additional filter chain; firing Filter: 'DefaultLoginPageGeneratingFilter'
+2018-08-28 16:33:15.037 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 8 of 13 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2018-08-28 16:33:15.037 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 9 of 13 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2018-08-28 16:33:15.038 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 10 of 13 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2018-08-28 16:33:15.039 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Populated SecurityContextHolder with anonymous token: 'org.springframework.security.authentication.AnonymousAuthenticationToken@b5548dd8: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS'
+2018-08-28 16:33:15.039 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 11 of 13 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2018-08-28 16:33:15.039 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.session.SessionManagementFilter  : Requested session ID EE9C0E35630B4A909F859D3448D02FF8 is invalid.
+2018-08-28 16:33:15.039 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 12 of 13 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2018-08-28 16:33:15.040 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ at position 13 of 13 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2018-08-28 16:33:15.040 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/test/'; against '/account'
+2018-08-28 16:33:15.040 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/test/'; against '/'
+2018-08-28 16:33:15.042 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.a.i.FilterSecurityInterceptor    : Public object - authentication not attempted
+2018-08-28 16:33:15.043 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.security.web.FilterChainProxy        : /test/ reached end of additional filter chain; proceeding with original chain
+2018-08-28 16:33:15.063 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@37f2961e
+2018-08-28 16:33:15.064 DEBUG 6080 --- [http-nio-8000-exec-3] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2018-08-28 16:33:15.065 DEBUG 6080 --- [http-nio-8000-exec-3] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2018-08-28 16:33:15.066 DEBUG 6080 --- [http-nio-8000-exec-3] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2018-08-28 16:33:15.164 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 1 of 13 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2018-08-28 16:33:15.164 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 2 of 13 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2018-08-28 16:33:15.164 DEBUG 6080 --- [http-nio-8000-exec-6] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2018-08-28 16:33:15.164 DEBUG 6080 --- [http-nio-8000-exec-6] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2018-08-28 16:33:15.164 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 3 of 13 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2018-08-28 16:33:15.165 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 4 of 13 in additional filter chain; firing Filter: 'CsrfFilter'
+2018-08-28 16:33:15.165 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 5 of 13 in additional filter chain; firing Filter: 'LogoutFilter'
+2018-08-28 16:33:15.165 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /favicon.ico' doesn't match 'POST /logout
+2018-08-28 16:33:15.165 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 6 of 13 in additional filter chain; firing Filter: 'UsernamePasswordAuthenticationFilter'
+2018-08-28 16:33:15.165 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /favicon.ico' doesn't match 'POST /login
+2018-08-28 16:33:15.166 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 7 of 13 in additional filter chain; firing Filter: 'DefaultLoginPageGeneratingFilter'
+2018-08-28 16:33:15.166 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 8 of 13 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2018-08-28 16:33:15.166 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 9 of 13 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2018-08-28 16:33:15.166 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 10 of 13 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2018-08-28 16:33:15.167 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Populated SecurityContextHolder with anonymous token: 'org.springframework.security.authentication.AnonymousAuthenticationToken@b5548dd8: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS'
+2018-08-28 16:33:15.168 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 11 of 13 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2018-08-28 16:33:15.168 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.session.SessionManagementFilter  : Requested session ID EE9C0E35630B4A909F859D3448D02FF8 is invalid.
+2018-08-28 16:33:15.169 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 12 of 13 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2018-08-28 16:33:15.169 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico at position 13 of 13 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2018-08-28 16:33:15.169 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/favicon.ico'; against '/account'
+2018-08-28 16:33:15.169 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/favicon.ico'; against '/'
+2018-08-28 16:33:15.169 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.a.i.FilterSecurityInterceptor    : Public object - authentication not attempted
+2018-08-28 16:33:15.169 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.security.web.FilterChainProxy        : /favicon.ico reached end of additional filter chain; proceeding with original chain
+2018-08-28 16:33:15.197 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@37f2961e
+2018-08-28 16:33:15.197 DEBUG 6080 --- [http-nio-8000-exec-6] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2018-08-28 16:33:15.198 DEBUG 6080 --- [http-nio-8000-exec-6] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2018-08-28 16:33:15.198 DEBUG 6080 --- [http-nio-8000-exec-6] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2018-08-28 16:33:16.108 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 1 of 13 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2018-08-28 16:33:16.108 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 2 of 13 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2018-08-28 16:33:16.108 DEBUG 6080 --- [http-nio-8000-exec-7] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2018-08-28 16:33:16.109 DEBUG 6080 --- [http-nio-8000-exec-7] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2018-08-28 16:33:16.109 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 3 of 13 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2018-08-28 16:33:16.109 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 4 of 13 in additional filter chain; firing Filter: 'CsrfFilter'
+2018-08-28 16:33:16.109 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 5 of 13 in additional filter chain; firing Filter: 'LogoutFilter'
+2018-08-28 16:33:16.112 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /test/' doesn't match 'POST /logout
+2018-08-28 16:33:16.113 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 6 of 13 in additional filter chain; firing Filter: 'UsernamePasswordAuthenticationFilter'
+2018-08-28 16:33:16.113 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /test/' doesn't match 'POST /login
+2018-08-28 16:33:16.113 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 7 of 13 in additional filter chain; firing Filter: 'DefaultLoginPageGeneratingFilter'
+2018-08-28 16:33:16.113 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 8 of 13 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2018-08-28 16:33:16.113 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 9 of 13 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2018-08-28 16:33:16.113 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 10 of 13 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2018-08-28 16:33:16.113 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Populated SecurityContextHolder with anonymous token: 'org.springframework.security.authentication.AnonymousAuthenticationToken@b5548dd8: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS'
+2018-08-28 16:33:16.115 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 11 of 13 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2018-08-28 16:33:16.115 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.session.SessionManagementFilter  : Requested session ID EE9C0E35630B4A909F859D3448D02FF8 is invalid.
+2018-08-28 16:33:16.115 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 12 of 13 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2018-08-28 16:33:16.115 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ at position 13 of 13 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2018-08-28 16:33:16.116 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/test/'; against '/account'
+2018-08-28 16:33:16.116 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/test/'; against '/'
+2018-08-28 16:33:16.116 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.a.i.FilterSecurityInterceptor    : Public object - authentication not attempted
+2018-08-28 16:33:16.117 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.security.web.FilterChainProxy        : /test/ reached end of additional filter chain; proceeding with original chain
+2018-08-28 16:33:16.120 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@37f2961e
+2018-08-28 16:33:16.120 DEBUG 6080 --- [http-nio-8000-exec-7] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2018-08-28 16:33:16.120 DEBUG 6080 --- [http-nio-8000-exec-7] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2018-08-28 16:33:16.121 DEBUG 6080 --- [http-nio-8000-exec-7] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 1 of 13 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 2 of 13 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 3 of 13 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 4 of 13 in additional filter chain; firing Filter: 'CsrfFilter'
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 5 of 13 in additional filter chain; firing Filter: 'LogoutFilter'
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /favicon.ico' doesn't match 'POST /logout
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 6 of 13 in additional filter chain; firing Filter: 'UsernamePasswordAuthenticationFilter'
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /favicon.ico' doesn't match 'POST /login
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 7 of 13 in additional filter chain; firing Filter: 'DefaultLoginPageGeneratingFilter'
+2018-08-28 16:33:16.152 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 8 of 13 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2018-08-28 16:33:16.153 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 9 of 13 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2018-08-28 16:33:16.153 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 10 of 13 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2018-08-28 16:33:16.153 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Populated SecurityContextHolder with anonymous token: 'org.springframework.security.authentication.AnonymousAuthenticationToken@b5548dd8: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS'
+2018-08-28 16:33:16.157 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 11 of 13 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2018-08-28 16:33:16.157 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.session.SessionManagementFilter  : Requested session ID EE9C0E35630B4A909F859D3448D02FF8 is invalid.
+2018-08-28 16:33:16.158 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 12 of 13 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2018-08-28 16:33:16.158 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico at position 13 of 13 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2018-08-28 16:33:16.158 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/favicon.ico'; against '/account'
+2018-08-28 16:33:16.159 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/favicon.ico'; against '/'
+2018-08-28 16:33:16.160 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.a.i.FilterSecurityInterceptor    : Public object - authentication not attempted
+2018-08-28 16:33:16.160 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.security.web.FilterChainProxy        : /favicon.ico reached end of additional filter chain; proceeding with original chain
+2018-08-28 16:33:16.163 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@37f2961e
+2018-08-28 16:33:16.164 DEBUG 6080 --- [http-nio-8000-exec-10] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2018-08-28 16:33:16.164 DEBUG 6080 --- [http-nio-8000-exec-10] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2018-08-28 16:33:16.164 DEBUG 6080 --- [http-nio-8000-exec-10] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
