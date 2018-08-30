@@ -3,54 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <title>登录页面</title>
-
+    <script typet="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
-<body style="background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535543451298&di=2428e2fcb6a525a5e2f15e4f63758911&imgtype=0&src=http%3A%2F%2Fimg1.3lian.com%2F2015%2Fa1%2F63%2Fd%2F121.jpg)">
-<div style="">
-    <span>登录页面</span>
-    <form action="/user/login" method="post" style="margin-top: 20px">
-        <table style="padding: 10px;margin: auto;border: red 1px solid;text-align: right;border-radius: 2px">
-            <tr>
-                <td>用户名：</td>
-                <td><input type="text" name="username"></td>
-            </tr>
-            <tr>
-                <td>密码：</td>
-                <td><input type="password" name="password"></td>
-            </tr>
-            <tr style="text-align: center">
-                <td colspan="2">
-                    <button style="background: none" type="submit">登录</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+<body style="background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535622428537&di=025780e821ce64d006a6ae76e772492c&imgtype=0&src=http%3A%2F%2Fuploads.xuexila.com%2Fallimg%2F1801%2F53-1P1220U938.jpg)">
+<div class="form">
+    <div class="form_cell form_title"><span>登录页面</span></div>
+    <div class="form_cell">
+        <input class="input" type="text" name="username" placeholder="用户名">
+    </div>
+    <div class="form_cell">
+        <input class="input" type="password" name="password" placeholder="密码">
+    </div>
+
+    <div class="form_cell form_submit">
+        <a onclick="submit()">登录</a>
+    </div>
+
 </div>
+
 </body>
 <style>
     body {
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
+        font-family: "Microsoft Yahei", "SimHei";
     }
-
-    div {
+    .form {
         text-align: center;
-        background: rgba(255, 255, 255, .5);
-        padding: 20px;
+        background-color: #f0f8ff;
+        padding: 30px;
+        padding-bottom: 60px;
         width: 300px;
         margin: auto;
         border-radius: 5px;
-        margin-top: 20%
+        margin-top: 180px;
+        box-shadow: #AEAEAE 0 0 10px;
     }
 
-    tr {
-        height: 35px;
+    .form_cell {
+        height: 52px;
+        margin-top: 30px;
     }
 
     input {
+        height: 48px;
+        width: 100%;
         border: none;
         border-radius: 4px;
     }
 
+    .input {
+        padding-left: 10px;
+    }
+
+    a{
+        padding:8px 100px;
+        background-color: #3bb3e0;
+        color: white;
+        border-radius:5px;
+        box-shadow: inset 0 1px 0 #2ab7ec, 0 5px 0 0 #156785, 0 8px 5px #999;
+        background-image:-webkit-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    }
+
+    a:active {
+        top: 3px;
+        background-image:-webkit-linear-gradient(bottom, rgb(62,184,229) 0%, rgb(44,160,202) 100%);
+        box-shadow: inset 0 1px 0 #2ab7ec, 0 2px 0 0 #156785, 0 5px 3px #999;
+    }
+
+
+    .form_title span{
+        font-size: 28px;
+    }
+    .form_cell input{
+        font-size: 20px;
+    }
+
 </style>
+<script type="application/javascript">
+
+    function submit() {
+        $.ajax({
+            type: 'POST',
+            data:{
+                name:"data",
+                data:"abc"
+            },
+            url:'/ajax',
+            dataType:'json',
+            timeout:20000,
+            success:function (data) {
+
+            },
+            error:function () {
+
+            }
+
+        });
+
+    }
+
+</script>
 </html>

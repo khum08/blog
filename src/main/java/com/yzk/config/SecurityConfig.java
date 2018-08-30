@@ -3,7 +3,6 @@ package com.yzk.config;
 import com.yzk.model.domain.Reader;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -36,13 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers("/account").access("hasRole('READER')")
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).authenticated()
-                .anyRequest().hasRole("ADMIN")
-                .and()
-                .formLogin();
+        http.authorizeRequests().anyRequest().permitAll();
+//        http.formLogin().loginPage("/login")
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/login").permitAll()
+//                .anyRequest().authenticated()
+//                .antMatchers("/account").authenticated()
+//                .and()
+//                .csrf().disable();
 
     }
 

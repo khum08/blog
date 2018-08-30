@@ -12,7 +12,11 @@ package com.yzk.exception;
 public enum ExceptionEnum {
 
     HTTP_OK(0,"请求成功"),
-    HTTP_UNKNOW(-1,"未知错误")
+    HTTP_UNKNOW(-1,"未知错误"),
+    HTTP_TYPE_ERROR(-2,"参数类型不匹配"),
+    HTTP_EMPTY_PARAM(-3,"缺少参数"),
+    //=================== category =========================
+    HTTP_PARENT_NOT_EXIT(-100,"该节点的父节点不存在"),
     ;
     ExceptionEnum(Integer status,String message){
         this.status = status;
@@ -28,5 +32,14 @@ public enum ExceptionEnum {
         return message;
     }
 
+    public static ExceptionEnum getEnumByKey(int key){
+        for (ExceptionEnum exception :
+                ExceptionEnum.values()) {
+            if (exception.getStatus() == key) {
+                return exception;
+            }
+        }
+        return null;
+    }
 
 }

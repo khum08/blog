@@ -73,8 +73,19 @@ public class ResponseUtil {
                 .build();
     }
 
-
-
+    /**
+     * 根据不同的状态码返回不同的Response
+     * 此方法只是利于快速写代码，不建议调用此方法
+     * @param status
+     * @return
+     */
+    public static Response reply(int status){
+        ExceptionEnum exceptionEnum = ExceptionEnum.getEnumByKey(status);
+        if (exceptionEnum == null){
+            throw new RuntimeException("此状态码没有在ExceptionEnum中定义");
+        }
+        return error(exceptionEnum);
+    }
 
 
 }
