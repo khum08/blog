@@ -1,3 +1,8 @@
+# categories tables;
 create table test(id int auto_increment primary key, str varchar(40));
 insert into test(str) values("yzk");
 create table categories(node_id int auto_increment primary key, name varchar(40), parent_id int);
+
+# article table;
+create table article (id int auto_increment primary key, category int, status tinyint, create_at int, update_time int,visited int, title varchar(255), summary varchar(255));
+create table article_c (a_id int, content text);

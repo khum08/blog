@@ -14,9 +14,8 @@ public enum ExceptionEnum {
     HTTP_OK(0,"请求成功"),
     HTTP_UNKNOW(-1,"未知错误"),
     HTTP_TYPE_ERROR(-2,"参数类型不匹配"),
-    HTTP_EMPTY_PARAM(-3,"缺少参数"),
-    //=================== category =========================
-    HTTP_PARENT_NOT_EXIT(-100,"该节点的父节点不存在"),
+    HTTP_EMPTY_PARAM(40000,"缺少参数"),
+    HTTP_DB_ERROR(50000,"数据库操作失败"),
     ;
     ExceptionEnum(Integer status,String message){
         this.status = status;

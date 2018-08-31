@@ -13,12 +13,6 @@ public class Category {
     private String name;
     private int parent_id;
 
-    public Category(int node_id, String name, int parent_id) {
-        this.node_id = node_id;
-        this.name = name;
-        this.parent_id = parent_id;
-    }
-
     @Override
     public String toString() {
         return "Category{" +
