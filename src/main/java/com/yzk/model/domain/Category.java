@@ -1,5 +1,7 @@
 package com.yzk.model.domain;
 
+import java.io.Serializable;
+
 /**
  * <pre>
  *     author : khum
@@ -7,7 +9,7 @@ package com.yzk.model.domain;
  *     desc   :
  * </pre>
  */
-public class Category {
+public class Category implements Serializable{
 
     private int node_id;
     private String name;

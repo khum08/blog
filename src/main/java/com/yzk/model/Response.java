@@ -1,11 +1,13 @@
 package com.yzk.model;
 
+import java.io.Serializable;
+
 /**
  * 所有请求响应的封装类
  *
  * @author khum
  */
-public class Response {
+public class Response implements Serializable{
 
     private Integer status;
     private Object data;

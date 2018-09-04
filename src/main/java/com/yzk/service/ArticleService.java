@@ -7,6 +7,7 @@ import com.yzk.model.domain.Article;
 import com.yzk.util.ResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,6 +78,7 @@ public class ArticleService {
      * @param category
      * @return
      */
+    @Cacheable(value = "blog", key = "'category_' + #category")
     public Response getArticlesByCategory(int category) {
         List<Article> list = mMapper.getArticlesByCategory(category);
         return ResponseUtil.success(list);
@@ -103,6 +105,7 @@ public class ArticleService {
      * @param id
      * @return
      */
+    @Cacheable(value = "blog", key = "'detail_' + #id")
     @Transactional
     public Response lookDetail(int id){
         Article article = mMapper.selectArticleById(id);

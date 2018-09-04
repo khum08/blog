@@ -3,6 +3,7 @@ package com.yzk.model.domain;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Collection;
  *     desc   :
  * </pre>
  */
-public class Reader implements UserDetails{
+public class Reader implements UserDetails,Serializable{
 
     private String userName;
     private String password;
