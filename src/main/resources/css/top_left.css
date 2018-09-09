@@ -1,0 +1,32 @@
+.wrapper .nav_top{
+    height: 100px;
+    background-color: #fff;
+    box-shadow:1px 2px 3px rgba(0, 0, 0, 0.1)
+}
+.brand{
+    width: 260px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+.wrapper .nav_left{
+    padding-top: 50px;
+    height: 100%;
+    background-color: #2B333E;
+    width: 260px;
+    position: fixed;
+    float: left;
+    left: 0;
+}
+.nav_left a:active{
+    color: white;
+}
+.nav_left a{
+    color: #AEB7C2;
+
+}
+.nav_left li{
+    text-align: center;
+    padding: 18px 30px;
+}
