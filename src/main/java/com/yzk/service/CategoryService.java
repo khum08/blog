@@ -6,7 +6,9 @@ import com.yzk.model.domain.Category;
 import com.yzk.util.ResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.List;
  * </pre>
  */
 @Service
+@CacheConfig(cacheNames = {"blog"})
 public class CategoryService {
 
     @Autowired
@@ -32,7 +35,7 @@ public class CategoryService {
      * @param parent_id
      * @return
      */
-    @CacheEvict(value = "blog", key = "'category'")
+    @CacheEvict(key = "'category'")
     public Response addChild(String name, int parent_id) {
         if (parent_id == 0){//没有父节点
             List<Category> categories = mMapper.selectChild(parent_id);
@@ -65,7 +68,7 @@ public class CategoryService {
      * @param node_id
      * @return
      */
-    @CacheEvict(value = "blog", key = "'category'")
+    @CachePut(key = "'category'")
     public Response removeNode(int node_id){
         int result = mMapper.removeNode(node_id);
         if (result == 0) {
@@ -94,7 +97,7 @@ public class CategoryService {
     /**
      * 展示这颗树
      */
-    @Cacheable(value = "blog", key = "'category'")
+    @Cacheable( key = "'category'")
     public Response showTree(){
         List<Category> categories = mMapper.selectAll();
         return ResponseUtil.success(categories);
@@ -106,7 +109,7 @@ public class CategoryService {
      * @param node_id
      * @param parent_id
      */
-    @CacheEvict(value = "blog", key = "'category'")
+    @CachePut( key = "'category'")
     public Response changeParent(int node_id, int parent_id) {
         Category category = mMapper.selectOne(node_id);
         if (category==null){
