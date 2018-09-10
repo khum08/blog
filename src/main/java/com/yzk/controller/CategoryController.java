@@ -5,8 +5,11 @@ import com.yzk.service.CategoryService;
 import com.yzk.util.RequestUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +42,13 @@ public class CategoryController {
         return mService.addChild(name, parent_id);
     }
 
-    @GetMapping("/remove")
-    public Response remove(@RequestParam int node_id){
+    /**
+     * delete请求
+     * @param node_id
+     * @return
+     */
+    @DeleteMapping("/{node_id}")
+    public Response remove(@PathVariable("node_id") int node_id){
         return mService.removeNode(node_id);
     }
 
@@ -49,8 +57,15 @@ public class CategoryController {
         return mService.showTree();
     }
 
-    @PostMapping("/change")
-    public Response changeParent(int node_id, int parent_id){
+    /**
+     * www-form-urlencoded传递参数parent_id
+     * @param node_id
+     * @param parent_id
+     * @return
+     */
+    @PutMapping("/{node_id}")
+    public Response changeParent(@PathVariable("node_id") int node_id,
+                                 @RequestParam("parent_id") int parent_id){
         return mService.changeParent(node_id, parent_id);
     }
 
