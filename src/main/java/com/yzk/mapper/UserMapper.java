@@ -2,6 +2,8 @@ package com.yzk.mapper;
 
 import com.yzk.model.domain.User;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
 
-    User login(User user);
+    @Select("select *from user where username = #{username};")
+    User findUserByUsername(User user);
 
+    @Insert("insert into user(username, email, password) values(#{username}, #{email}, #{password})")
+    int register(User user);
 }

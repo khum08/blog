@@ -1,10 +1,8 @@
 package com.yzk.config;
 
-import com.yzk.filter.JwtFilter;
 import com.yzk.model.domain.Reader;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,14 +17,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * <pre>
  *     author : khum
  *     time   : 2018/8/28
- *     desc   :
+ *     desc   : Spring security配置
  * </pre>
  */
 
@@ -42,10 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().permitAll()
                 .and().csrf().disable();
-//        http.formLogin().loginPage("/login")
+//        http.formLogin().loginPage("/findUserByUsername")
 //                .and()
 //                .authorizeRequests()
-//                .antMatchers("/login").permitAll()
+//                .antMatchers("/findUserByUsername").permitAll()
 //                .anyRequest().authenticated()
 //                .antMatchers("/account").authenticated()
 //                .and()
@@ -75,14 +70,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public FilterRegistrationBean jwtFilter() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(new JwtFilter());
-        List<String> urlPatterns = new ArrayList<>();
-        urlPatterns.add("");
-        registrationBean.addUrlPatterns(urlPatterns.toArray(new String[urlPatterns.size()]));
-        return registrationBean;
-    }
 }
 

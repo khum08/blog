@@ -27,7 +27,7 @@ import java.util.Set;
  * <pre>
  *     author : khum
  *     time   : 2018/9/3
- *     desc   :
+ *     desc   : Redis 配置
  * </pre>
  */
 @Configuration

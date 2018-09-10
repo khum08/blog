@@ -57,7 +57,7 @@ public class JwtHelper {
 
         JwtBuilder jwtBuilder = Jwts.builder().setHeaderParam("typ", "JWT")
                 .claim("role", role)
-                .claim("unique_name", name)
+                .claim("username", name)
                 .claim("userid", userId)
                 .setIssuer(issuer)
                 .setAudience(audience)

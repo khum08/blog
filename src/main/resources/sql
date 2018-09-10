@@ -6,3 +6,6 @@ create table categories(node_id int auto_increment primary key, name varchar(40)
 # article table;
 create table article (id int auto_increment primary key, category int, status tinyint, create_at int, update_time int,visited int, title varchar(255), summary varchar(255));
 create table article_c (a_id int, content text);
+
+# user table;
+create table user (id int auto_increment primary key, username varchar(20), email varchar(40), password varchar(255));

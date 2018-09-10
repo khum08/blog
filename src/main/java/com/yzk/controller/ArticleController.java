@@ -29,6 +29,11 @@ public class ArticleController {
     @Autowired
     ArticleService mService;
 
+    /**
+     * json提交
+     * @param article
+     * @return
+     */
     @PostMapping("/push")
     public Response push_article(@RequestBody Article article) {
         int currentTime = (int) (new Date().getTime() / 1000);

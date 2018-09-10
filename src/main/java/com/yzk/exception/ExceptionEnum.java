@@ -16,6 +16,9 @@ public enum ExceptionEnum {
     HTTP_TYPE_ERROR(-2,"参数类型不匹配"),
     HTTP_EMPTY_PARAM(40000,"缺少参数"),
     HTTP_DB_ERROR(50000,"数据库操作失败"),
+    HTTP_LOGIN_FIRST(40000,"请先登录"),
+    HTTP_LOGIN_ERROR(40001,"登录异常"),
+
     ;
     ExceptionEnum(Integer status,String message){
         this.status = status;

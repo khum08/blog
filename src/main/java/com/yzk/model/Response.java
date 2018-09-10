@@ -11,14 +11,14 @@ public class Response implements Serializable{
 
     private Integer status;
     private Object data;
-    private String errorMessage;
+    private String message;
 
     private Response(){}
 
     private Response(Builder builder){
         this.status = builder.status;
         this.data = builder.data;
-        this.errorMessage = builder.errorMessage;
+        this.message = builder.message;
     }
 
     public Integer getStatus() {
@@ -33,16 +33,16 @@ public class Response implements Serializable{
     public void setData(Object data) {
         this.data = data;
     }
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getMessage() {
+        return message;
     }
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
     public String toString() {
-        return "JsonResult { status =" + status + ", data=" + data + ", error=" + errorMessage + "}";
+        return "JsonResult { status =" + status + ", data=" + data + ", error=" + message + "}";
     }
 
     /**
@@ -54,7 +54,7 @@ public class Response implements Serializable{
 
         private Integer status;
         private Object data;
-        private String errorMessage;
+        private String message;
 
         public Builder(){}
 
@@ -68,8 +68,8 @@ public class Response implements Serializable{
             return this;
         }
 
-        public Builder setErrorMessage(String message){
-            this.errorMessage = message;
+        public Builder setMessage(String message){
+            this.message = message;
             return this;
         }
 

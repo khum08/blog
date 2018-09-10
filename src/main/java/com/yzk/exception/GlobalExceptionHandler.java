@@ -2,9 +2,11 @@ package com.yzk.exception;
 
 import com.yzk.model.Response;
 import com.yzk.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -18,16 +20,27 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = Exception.class)
+    /**
+     * 自定义的访问错误
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler(AccessException.class)
     @ResponseBody
-    public Response handle(Exception e){
-        if(e instanceof AccessException){
-            AccessException exception = (AccessException)e;
-            return ResponseUtil.error(exception.getStatus(),exception.getMessage());
-        }else{
-            logger.error("系统错误",e);
-            return ResponseUtil.error(ExceptionEnum.HTTP_UNKNOW);
-        }
+    public Response accessExceptionHandler(AccessException exception) {
+        return ResponseUtil.error(exception.getStatus(), exception.getMessage());
+    }
+
+    /**
+     * 系统未知错误
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Response handler(Exception exception) {
+        logger.error("系统错误", exception);
+        return ResponseUtil.error(ExceptionEnum.HTTP_UNKNOW);
     }
 
 }

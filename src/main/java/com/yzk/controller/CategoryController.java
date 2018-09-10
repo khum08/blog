@@ -25,8 +25,16 @@ public class CategoryController {
     @Autowired
     CategoryService mService;
 
+    /**
+     * 表单提交
+     * RequestParam和参数名相同时，value可以不写
+     * @param name
+     * @param parent_id
+     * @return
+     */
     @PostMapping("/add")
-    public Response add( String name, int parent_id){
+    public Response add(@RequestParam(value = "name", required = true) String name,
+                        @RequestParam(value = "parent_id", required = true) int parent_id){
         RequestUtil.isEmpty(name);
         return mService.addChild(name, parent_id);
     }

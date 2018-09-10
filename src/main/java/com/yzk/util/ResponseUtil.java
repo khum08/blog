@@ -20,7 +20,7 @@ public class ResponseUtil {
         return new Response.Builder()
                 .setStatus(ExceptionEnum.HTTP_OK.getStatus())
                 .setData(data)
-                .setErrorMessage(ExceptionEnum.HTTP_OK.getMessage())
+                .setMessage(ExceptionEnum.HTTP_OK.getMessage())
                 .build();
     }
 
@@ -31,7 +31,7 @@ public class ResponseUtil {
     public static Response success (){
         return new Response.Builder()
                 .setStatus(ExceptionEnum.HTTP_OK.getStatus())
-                .setErrorMessage(ExceptionEnum.HTTP_OK.getMessage())
+                .setMessage(ExceptionEnum.HTTP_OK.getMessage())
                 .build();
     }
 
@@ -43,7 +43,7 @@ public class ResponseUtil {
     public static Response error(ExceptionEnum exception){
         return new Response.Builder()
                 .setStatus(exception.getStatus())
-                .setErrorMessage(exception.getMessage())
+                .setMessage(exception.getMessage())
                 .build();
     }
 
@@ -55,7 +55,7 @@ public class ResponseUtil {
     public static Response error(AccessException excepton){
         return new Response.Builder()
                 .setStatus(excepton.getStatus())
-                .setErrorMessage(excepton.getMessage())
+                .setMessage(excepton.getMessage())
                 .build();
     }
 
@@ -69,7 +69,7 @@ public class ResponseUtil {
     public static Response error(int status,String message){
         return new Response.Builder()
                 .setStatus(status)
-                .setErrorMessage(message)
+                .setMessage(message)
                 .build();
     }
 

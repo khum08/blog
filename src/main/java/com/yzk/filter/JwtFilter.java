@@ -1,5 +1,6 @@
 package com.yzk.filter;
 
+import com.yzk.exception.AccessException;
 import com.yzk.model.domain.Audience;
 import com.yzk.util.JwtHelper;
 
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.jsonwebtoken.Claims;
+
+import static com.yzk.exception.ExceptionEnum.HTTP_LOGIN_ERROR;
+import static com.yzk.exception.ExceptionEnum.HTTP_LOGIN_FIRST;
 
 /**
  * <pre>
@@ -42,7 +46,7 @@ public class JwtFilter extends GenericFilterBean{
             filterChain.doFilter(servletRequest,servletResponse);
         }else{
             if(authHeader==null|| !authHeader.startsWith("bearer;")){
-                throw new RuntimeException("请先登录");
+                throw new AccessException(HTTP_LOGIN_FIRST);
             }
             String authorization = authHeader.substring(7);
             if(mAudience==null){
@@ -51,12 +55,11 @@ public class JwtFilter extends GenericFilterBean{
             }
             Claims claims = JwtHelper.parseJwt(authorization, mAudience.getBase64Secret());
             if (claims == null) {
-                throw new RuntimeException("登录异常");
+                throw new AccessException(HTTP_LOGIN_ERROR);
             }
             req.setAttribute("claims", claims);
             filterChain.doFilter(servletRequest,servletResponse);
         }
-
 
     }
 }
