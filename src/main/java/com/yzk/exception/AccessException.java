@@ -15,6 +15,10 @@ public class AccessException extends RuntimeException{
         this.status = exception.getStatus();
     }
 
+    public AccessException(int status, String message){
+        super(message);
+        this.status = status;
+    }
     /**
      * 此处是为了构成异常的链化，这样能准确定位多个微服务中具体发生异常的地方
      * 不过此方法是否可行需进一步考虑

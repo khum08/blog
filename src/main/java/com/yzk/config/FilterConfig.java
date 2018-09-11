@@ -2,6 +2,7 @@ package com.yzk.config;
 
 import com.yzk.filter.ExceptionHandlerFilter;
 import com.yzk.filter.JwtFilter;
+import com.yzk.filter.SignFilter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,20 @@ public class FilterConfig {
     }
 
     /**
+     * 验证签名
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean signFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(new SignFilter());
+        registrationBean.setOrder(2);
+        registrationBean.setName("signFilter");
+        registrationBean.addUrlPatterns("/*");
+        return registrationBean;
+    }
+
+    /**
      * jwt拦截器
      * @return
      */
@@ -44,7 +59,9 @@ public class FilterConfig {
         registrationBean.setFilter(new JwtFilter());
         List<String> urlPatterns = new ArrayList<>();
         urlPatterns.add("/apis/article/detail");
-        registrationBean.setOrder(2);
+        urlPatterns.add("/user/authorize");
+        urlPatterns.add("/user/refresh_token");
+        registrationBean.setOrder(3);
         registrationBean.setName("JwtFilter");
         registrationBean.addUrlPatterns(urlPatterns.toArray(new String[urlPatterns.size()]));
         return registrationBean;

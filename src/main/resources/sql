@@ -8,4 +8,4 @@ create table article (id int auto_increment primary key, category int, status ti
 create table article_c (a_id int, content text);
 
 # user table;
-create table user (id int auto_increment primary key, username varchar(20), email varchar(40), password varchar(255));
+create table user (id int auto_increment primary key, username varchar(20), email varchar(40), password varchar(255), auth varchar(255), is_enabled tinyint(1));

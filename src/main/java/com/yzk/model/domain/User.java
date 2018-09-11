@@ -4,8 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <pre>
@@ -20,11 +21,11 @@ public class User implements UserDetails {
     private String email;
     private String username;
     private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private String auth;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
-    private boolean isEnabled;
+    private int is_enabled;
 
     @Override
     public String toString() {
@@ -33,11 +34,11 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", userName='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", authorities=" + authorities +
+                ", auth=" + auth +
                 ", isAccountNonExpired=" + isAccountNonExpired +
                 ", isAccountNonLocked=" + isAccountNonLocked +
                 ", isCredentialsNonExpired=" + isCredentialsNonExpired +
-                ", isEnabled=" + isEnabled +
+                ", is_enabled=" + is_enabled +
                 '}';
     }
 
@@ -49,8 +50,8 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
+    public void setAuthorities(String auth) {
+        this.auth = auth;
     }
 
     public Integer getId() {
@@ -71,7 +72,12 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("reader"));
+        String[] split = auth.split(";");
+        List<GrantedAuthority> authList= new ArrayList();
+        for(String aSpilt: split) {
+            authList.add(new SimpleGrantedAuthority(aSpilt));
+        }
+        return authList;
     }
 
     @Override
@@ -101,7 +107,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.isEnabled;
+        return this.is_enabled != 0;
     }
 
     public void setAccountNonExpired(boolean accountNonExpired) {
@@ -116,7 +122,7 @@ public class User implements UserDetails {
         this.isCredentialsNonExpired = credentialsNonExpired;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.isEnabled = enabled;
+    public void setEnabled(int enabled) {
+        this.is_enabled = enabled;
     }
 }

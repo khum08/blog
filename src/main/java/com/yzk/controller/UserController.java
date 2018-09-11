@@ -1,5 +1,6 @@
 package com.yzk.controller;
 
+import com.yzk.exception.ExceptionEnum;
 import com.yzk.model.Response;
 import com.yzk.model.domain.Audience;
 import com.yzk.model.domain.User;
@@ -7,20 +8,28 @@ import com.yzk.service.UserService;
 import com.yzk.util.JwtHelper;
 import com.yzk.util.ResponseUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
+import io.jsonwebtoken.Claims;
+
 /**
  * <pre>
  *     author : khum
  *     time   : 2018/9/9
- *     desc   :
+ *     desc   : 用户管理
  * </pre>
  */
 @RestController
@@ -33,6 +42,8 @@ public class UserController {
     Audience mAudience;
     @Autowired
     PasswordEncoder mPasswordEncoder;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 表单提交
@@ -55,8 +66,7 @@ public class UserController {
         if (!matches){
             return ResponseUtil.error(40001, "密码错误");
         }
-        String token = JwtHelper.createJwt(queryUer.getUsername(), queryUer.getId(),
-                queryUer.getAuthorities().toString(), mAudience.getClientId(),
+        String token = JwtHelper.createJwt(queryUer, mAudience.getClientId(),
                 mAudience.getName(), mAudience.getExpiresSecond(),
                 mAudience.getBase64Secret());
 
@@ -65,6 +75,8 @@ public class UserController {
 
     @PostMapping("/register")
     public Response register(@RequestBody User user) {
+        user.setAuthorities("READER;");
+        logger.debug(user.toString());
         String password = mPasswordEncoder.encode(user.getPassword());
         user.setPassword(password);
         int success = mService.register(user);
@@ -80,5 +92,33 @@ public class UserController {
         }
     }
 
+    /**
+     * www-form-urlencoded传递参数auth
+     * @param auth
+     * @param request
+     * @return
+     */
+    @PutMapping("/authorize")
+    public Response authorize(@RequestParam(value = "auth" ,required = true) String auth,
+                              HttpServletRequest request) {
+        Claims claims = (Claims) request.getAttribute("claims");
+        Integer userid = (Integer) claims.get("userid");
+        if (userid == null) {
+            return ResponseUtil.error(ExceptionEnum.HTTP_UNKNOWN);
+        }
+        return mService.authorize(userid, auth.toUpperCase());
+    }
+
+    /**
+     * 刷新token
+     * @param request
+     * @return
+     */
+    @GetMapping("/refresh_token")
+    public Response refreshToken(HttpServletRequest request){
+        Claims claims = (Claims) request.getAttribute("claims");
+        Integer userid = (Integer) claims.get("userid");
+        return mService.refreshToken(userid);
+    }
 
 }

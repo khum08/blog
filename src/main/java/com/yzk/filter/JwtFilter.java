@@ -4,6 +4,8 @@ import com.yzk.exception.AccessException;
 import com.yzk.model.domain.Audience;
 import com.yzk.util.JwtHelper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -27,10 +29,12 @@ import static com.yzk.exception.ExceptionEnum.HTTP_LOGIN_FIRST;
  * <pre>
  *     author : khum
  *     time   : 2018/9/9
- *     desc   :
+ *     desc   : 校验token
  * </pre>
  */
-public class JwtFilter extends GenericFilterBean{
+public class JwtFilter extends GenericFilterBean {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private Audience mAudience;
@@ -38,27 +42,28 @@ public class JwtFilter extends GenericFilterBean{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest)servletRequest;
-        HttpServletResponse resp = (HttpServletResponse)servletResponse;
+        logger.debug("----------------this is JwtFilter---------------------------");
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String authHeader = req.getHeader("authorization");
-        if("OPTIONS".equals(req.getMethod())){
+        if ("OPTIONS".equals(req.getMethod())) {
             resp.setStatus(HttpServletResponse.SC_OK);
-            filterChain.doFilter(servletRequest,servletResponse);
-        }else{
-            if(authHeader==null|| !authHeader.startsWith("bearer;")){
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            if (authHeader == null || !authHeader.startsWith("bearer;")) {
                 throw new AccessException(HTTP_LOGIN_FIRST);
             }
             String authorization = authHeader.substring(7);
-            if(mAudience==null){
+            if (mAudience == null) {
                 BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(req.getServletContext());
-                mAudience = (Audience)factory.getBean("audience");
+                mAudience = (Audience) factory.getBean("audience");
             }
             Claims claims = JwtHelper.parseJwt(authorization, mAudience.getBase64Secret());
             if (claims == null) {
                 throw new AccessException(HTTP_LOGIN_ERROR);
             }
             req.setAttribute("claims", claims);
-            filterChain.doFilter(servletRequest,servletResponse);
+            filterChain.doFilter(servletRequest, servletResponse);
         }
 
     }

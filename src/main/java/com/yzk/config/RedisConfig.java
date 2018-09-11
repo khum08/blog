@@ -40,8 +40,10 @@ public class RedisConfig extends CachingConfigurerSupport{
         configuration = configuration.entryTtl(Duration.ofHours(1)).disableCachingNullValues();
         Set<String> cacheNames = new HashSet<>();
         cacheNames.add("blog");
+        cacheNames.add("blog_as");
         Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
-        configMap.put("blog",configuration);
+        configMap.put("blog", configuration);
+        configMap.put("blog_as", configuration);
         return RedisCacheManager.builder(factory)
                 .initialCacheNames(cacheNames)
                 .withInitialCacheConfigurations(configMap)
