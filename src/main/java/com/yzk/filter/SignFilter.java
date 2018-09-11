@@ -2,22 +2,31 @@ package com.yzk.filter;
 
 import com.yzk.exception.AccessException;
 
+import com.yzk.util.RedisUtil;
+import com.yzk.util.SpringKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.AccessDeniedException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -35,8 +44,9 @@ public class SignFilter extends GenericFilterBean{
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${client.app_secret}")
-    private String app_secret;
+    @Qualifier("custom")
+    @Autowired
+    RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public void doFilter(ServletRequest servletRequest,
@@ -44,24 +54,36 @@ public class SignFilter extends GenericFilterBean{
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String app_id = request.getParameter("app_id");
-        String clientSign = request.getParameter("sign");
-        String requestBody = getRequestBody(request);
-        if (app_id==null || clientSign == null || app_id.isEmpty() || clientSign.isEmpty()){
-            throw new AccessException(49120, "缺少请求签名SIGN");
+        System.out.println("app_id:"+app_id);
+        if (redisTemplate == null){
+            redisTemplate = (RedisTemplate)SpringKit.getBean("custom");
         }
-        if ( requestBody== null || requestBody.isEmpty()) {
-            //没有请求体的拦截
-            filterChain.doFilter(servletRequest, servletResponse);
-        }else{
-            //验证签名
-            System.out.println("校验了签名");
-            String serverSign = computeSign(requestBody, app_secret);
-            if (serverSign.equals(clientSign)){
-                filterChain.doFilter(servletRequest, servletResponse);
-            }else{
-                throw new AccessException(49121, "请求签名SIGN错误");
-            }
-        }
+        String app_secret = null;
+//        try{
+            app_secret = redisTemplate.opsForValue().get(app_id)+"";
+
+            throw new AccessException(49141,app_secret.toString());
+//        }
+//        catch (Exception e){
+//            throw new AccessException(49141,"Redis获取AppSecret失败");
+//        }
+//        String clientSign = request.getParameter("sign");
+//        String requestBody = getRequestBody(request);
+//        if (app_id==null || clientSign == null || app_id.isEmpty() || clientSign.isEmpty()){
+//            throw new AccessException(49120, "缺少请求签名SIGN");
+//        }
+//        if ( requestBody== null || requestBody.isEmpty()) {
+//            //没有请求体的拦截
+//            filterChain.doFilter(servletRequest, servletResponse);
+//        }else{
+//            //验证签名
+//            String serverSign = computeSign(requestBody, app_secret);
+//            if (serverSign.equals(clientSign)){
+//                filterChain.doFilter(servletRequest, servletResponse);
+//            }else{
+//                throw new AccessException(49121, "请求签名SIGN错误");
+//            }
+//        }
     }
 
     /**

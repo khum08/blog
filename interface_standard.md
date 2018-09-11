@@ -28,6 +28,8 @@ code | message
 49103 | token解析错误
 49120 | 缺少请求签名SIGN
 49121 | 请求签名SIGN错误
+49140 | 服务器Redis错误
+49141 | Redis获取AppSecret失败
 
 4. 模块
 

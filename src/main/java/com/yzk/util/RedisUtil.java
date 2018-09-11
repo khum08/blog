@@ -1,5 +1,6 @@
 package com.yzk.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * </pre>
  */
 public class RedisUtil {
+
     private RedisTemplate<String, Object> redisTemplate;
 
     public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {

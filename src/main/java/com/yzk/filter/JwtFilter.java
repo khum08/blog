@@ -54,6 +54,7 @@ public class JwtFilter extends GenericFilterBean {
                 throw new AccessException(HTTP_LOGIN_FIRST);
             }
             String authorization = authHeader.substring(7);
+            //filter中注入会失败，因为bean还没有初始化
             if (mAudience == null) {
                 BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(req.getServletContext());
                 mAudience = (Audience) factory.getBean("audience");
