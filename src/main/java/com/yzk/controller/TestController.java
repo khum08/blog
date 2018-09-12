@@ -1,13 +1,16 @@
 package com.yzk.controller;
 
 import com.yzk.model.Response;
+import com.yzk.service.RedisService;
 import com.yzk.service.TestService;
 import com.yzk.util.ResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
@@ -22,6 +25,9 @@ public class TestController {
 
     @Autowired
     TestService testService;
+
+    @Autowired
+    RedisService mRedisService;
 
     @GetMapping("/")
     public String test(){
@@ -38,6 +44,11 @@ public class TestController {
         return "hello world";
     }
 
+    /**
+     * 返回请求的响应体
+     * @param request
+     * @return
+     */
     @PostMapping("/test3")
     public String test4(HttpServletRequest request){
         try {
@@ -52,6 +63,30 @@ public class TestController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 向redis中存数据
+     * @param key
+     * @param value
+     * @return
+     */
+    @PostMapping("/set")
+    public String redisSet(@RequestParam String key,
+                            @RequestParam String value){
+        boolean success = mRedisService.set(key, value);
+        return success?"success":"failure";
+    }
+
+    /**
+     * 向Redis中取数据
+     * @param key
+     * @return
+     */
+    @GetMapping("/{key}")
+    public String redisGet(@PathVariable("key") String key){
+        Object o = mRedisService.get(key);
+        return o.toString();
     }
 
 

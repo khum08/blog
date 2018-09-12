@@ -49,13 +49,13 @@ public class ResponseUtil {
 
     /**
      * 请求失败
-     * @param excepton
+     * @param exception
      * @return
      */
-    public static Response error(AccessException excepton){
+    public static Response error(AccessException exception){
         return new Response.Builder()
-                .setStatus(excepton.getStatus())
-                .setMessage(excepton.getMessage())
+                .setStatus(exception.getStatus())
+                .setMessage(exception.getMessage())
                 .build();
     }
 

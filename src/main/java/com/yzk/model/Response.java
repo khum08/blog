@@ -42,7 +42,11 @@ public class Response implements Serializable{
 
     @Override
     public String toString() {
-        return "JsonResult { status =" + status + ", data=" + data + ", error=" + message + "}";
+        return "Response{" +
+                "status=" + status +
+                ", data=" + data +
+                ", message='" + message +
+                '}';
     }
 
     /**

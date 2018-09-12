@@ -63,6 +63,7 @@ public class JwtFilter extends GenericFilterBean {
             if (claims == null) {
                 throw new AccessException(HTTP_LOGIN_ERROR);
             }
+            //把解析token得到的个人信息放在request中
             req.setAttribute("claims", claims);
             filterChain.doFilter(servletRequest, servletResponse);
         }

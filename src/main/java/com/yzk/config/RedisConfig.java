@@ -9,7 +9,6 @@ import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -51,6 +50,12 @@ public class RedisConfig extends CachingConfigurerSupport{
                 .build();
     }
 
+    /**
+     * 系统中自动装配了两个RedisTemplate，直接注入会产生冲突，可以通过name来注入，
+     * 也可以使用@Primary注解标记这个bean优先注入
+     * @param factory
+     * @return
+     */
     @Bean("custom")
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory factory){
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();

@@ -31,16 +31,16 @@ public class SpringKit implements ApplicationContextAware {
 
     //根据name
     public static Object getBean(String name){
-        return getApplicationContext().getBean(name);
+        return applicationContext.getBean(name);
     }
 
     //根据类型
     public static <T> T getBean(Class<T> tClass){
-        return getApplicationContext().getBean(tClass);
+        return applicationContext.getBean(tClass);
     }
 
     public static <T> T getBean(String name,Class<T> tClass){
-        return getApplicationContext().getBean(name, tClass);
+        return applicationContext.getBean(name, tClass);
     }
 
 }

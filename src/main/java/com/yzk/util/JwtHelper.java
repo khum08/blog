@@ -34,11 +34,10 @@ public class JwtHelper {
      */
     public static Claims parseJwt(String jsonWebToken,String base64Security){
         try {
-            Claims claims = Jwts.parser()
+            return Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))
                     .parseClaimsJws(jsonWebToken)
                     .getBody();
-            return claims;
         }catch (ExpiredJwtException e){
             throw new AccessException(ExceptionEnum.HTTP_TOKEN_EXPIRED);
         }catch (SignatureException e){

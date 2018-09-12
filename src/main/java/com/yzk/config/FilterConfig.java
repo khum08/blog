@@ -1,20 +1,13 @@
 package com.yzk.config;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yzk.filter.ExceptionHandlerFilter;
 import com.yzk.filter.JwtFilter;
 import com.yzk.filter.SignFilter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +38,10 @@ public class FilterConfig {
 
     /**
      * 验证签名
+     * Profile 控制此拦截器只在pro生产环境下生效
      * @return
      */
+    @Profile("pro")
     @Bean
     public FilterRegistrationBean signFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
