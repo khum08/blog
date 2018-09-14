@@ -5,6 +5,7 @@ import com.yzk.util.ResponseUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -96,6 +97,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     public Response methodNotSupportedHandler (BindException exception){
         return ResponseUtil.error(49004, exception.getMessage());
+    }
+
+    /**
+     * JSON_parse_error
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public Response httpMessageNotReadableHandler (HttpMessageNotReadableException exception){
+        return ResponseUtil.error(49006, exception.getMessage());
     }
 
 }

@@ -22,6 +22,7 @@ import java.util.List;
 @Configuration
 public class FilterConfig {
 
+
     /**
      * 捕捉拦截器中抛出的异常
      * @return
@@ -30,7 +31,7 @@ public class FilterConfig {
     public FilterRegistrationBean exceptionHandlerFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new ExceptionHandlerFilter());
-        registrationBean.setOrder(1);
+        registrationBean.setOrder(10);
         registrationBean.setName("ExceptionHandlerFilter");
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
@@ -46,7 +47,7 @@ public class FilterConfig {
     public FilterRegistrationBean signFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new SignFilter());
-        registrationBean.setOrder(2);
+        registrationBean.setOrder(11);
         registrationBean.setName("signFilter");
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
@@ -64,10 +65,12 @@ public class FilterConfig {
         urlPatterns.add("/apis/article/detail");
         urlPatterns.add("/user/authorize");
         urlPatterns.add("/user/refresh_token");
-        registrationBean.setOrder(3);
+        registrationBean.setOrder(12);
         registrationBean.setName("JwtFilter");
         registrationBean.addUrlPatterns(urlPatterns.toArray(new String[urlPatterns.size()]));
         return registrationBean;
     }
+
+
 
 }

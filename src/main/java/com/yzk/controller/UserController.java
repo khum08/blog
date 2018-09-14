@@ -8,11 +8,10 @@ import com.yzk.service.UserService;
 import com.yzk.util.JwtHelper;
 import com.yzk.util.ResponseUtil;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import io.jsonwebtoken.Claims;
 
@@ -34,7 +34,7 @@ import io.jsonwebtoken.Claims;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     UserService mService;
@@ -42,8 +42,6 @@ public class UserController {
     Audience mAudience;
     @Autowired
     PasswordEncoder mPasswordEncoder;
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 表单提交
@@ -74,7 +72,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Response register(@RequestBody User user) {
+    public Response register(@RequestBody @Valid User user, BindingResult bindingResult) {
+        Response valid = valid(bindingResult);
+        if(valid!=null) return valid;
         user.setAuthorities("READER;");
         logger.debug(user.toString());
         String password = mPasswordEncoder.encode(user.getPassword());

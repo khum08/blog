@@ -46,6 +46,7 @@ public class SignFilter extends GenericFilterBean{
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
+        logger.info("pass SignFilter");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String app_id = request.getParameter("app_id");
         String app_secret = null;
@@ -60,7 +61,7 @@ public class SignFilter extends GenericFilterBean{
         }
         String clientSign = request.getParameter("sign");
         String requestBody = getRequestBody(request);
-        if (app_id==null || clientSign == null || app_id.isEmpty() || clientSign.isEmpty()){
+        if (clientSign == null || app_id.isEmpty() || clientSign.isEmpty()){
             throw new AccessException(49120, "缺少请求签名SIGN");
         }
         if ( requestBody== null || requestBody.isEmpty()) {
@@ -69,7 +70,7 @@ public class SignFilter extends GenericFilterBean{
         }else{
             //验证签名
             String serverSign = computeSign(requestBody, app_secret);
-            if (serverSign.equals(clientSign)){
+            if (serverSign!=null && serverSign.equals(clientSign)){
                 filterChain.doFilter(servletRequest, servletResponse);
             }else{
                 throw new AccessException(49121, "请求签名SIGN错误");

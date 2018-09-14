@@ -24,7 +24,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/apis/article")
-public class ArticleController {
+public class ArticleController extends BaseController{
 
     @Autowired
     ArticleService mService;

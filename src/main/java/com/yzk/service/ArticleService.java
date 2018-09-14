@@ -22,7 +22,7 @@ import java.util.List;
  * </pre>
  */
 @Service
-public class ArticleService {
+public class ArticleService extends BaseService{
 
     @Autowired
     ArticleMapper mMapper;

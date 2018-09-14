@@ -9,3 +9,8 @@ create table article_c (a_id int, content text);
 
 # user table;
 create table user (id int auto_increment primary key, username varchar(20), email varchar(40), password varchar(255), auth varchar(255), is_enabled tinyint(1));
+
+# uuid 指定为唯一索引
+create table uuid(value varchar(50) primary key);
+# 记录取到了UUID下标
+create table uuid_num (num int);

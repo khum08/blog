@@ -4,8 +4,6 @@ import com.yzk.exception.AccessException;
 import com.yzk.model.domain.Audience;
 import com.yzk.util.JwtHelper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -34,15 +32,13 @@ import static com.yzk.exception.ExceptionEnum.HTTP_LOGIN_FIRST;
  */
 public class JwtFilter extends GenericFilterBean {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     private Audience mAudience;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
-        logger.debug("----------------this is JwtFilter---------------------------");
+        logger.debug("pass JwtFilter");
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String authHeader = req.getHeader("authorization");
