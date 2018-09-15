@@ -30,9 +30,9 @@
             <fileNamePattern>${LOG_HOME}/logfile.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <!--日志文件最大的大小-->
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <MaxFileSize>10MB</MaxFileSize>
-        </triggeringPolicy>
+        <!--<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">-->
+            <!--<MaxFileSize>10MB</MaxFileSize>-->
+        <!--</triggeringPolicy>-->
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -82,9 +82,9 @@
 
     <!-- 生产环境下的日志配置 -->
     <springProfile name="prod">
-        <root level="INFO">
-            <appender-ref ref="console"/>
-            <!--<appender-ref ref="SYSTEM_FILE" />-->
+        <root level="DEBUG">
+            <!--<appender-ref ref="console"/>-->
+            <appender-ref ref="file" />
         </root>
     </springProfile>
 </configuration>

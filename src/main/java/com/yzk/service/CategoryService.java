@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Service
 @CacheConfig(cacheNames = {"blog"})
-public class CategoryService {
+public class CategoryService extends BaseService{
 
     @Autowired
     CategoryMapper mMapper;

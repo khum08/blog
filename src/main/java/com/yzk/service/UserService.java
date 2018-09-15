@@ -23,7 +23,7 @@ import java.util.Iterator;
  * </pre>
  */
 @Service
-public class UserService {
+public class UserService extends BaseService{
 
     @Autowired
     UserMapper mMapper;

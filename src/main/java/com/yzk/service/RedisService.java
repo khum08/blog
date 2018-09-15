@@ -1,6 +1,9 @@
-package com.yzk.util;
+package com.yzk.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -12,15 +15,18 @@ import java.util.concurrent.TimeUnit;
  * <pre>
  *     author : khum
  *     time   : 2018/9/3
- *     desc   :
+ *     desc   : Redis的Service
+ *     利用CacheManager存取Redis缓存时不需要使用该服务
+ *     注意RedisTemplate自动装配能否成功
  * </pre>
  */
-public class RedisUtil {
-    private RedisTemplate<String, Object> redisTemplate;
+@Service
+public class RedisService {
 
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+    @Qualifier("custom")
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     //=============================common============================
     /**
      * 指定缓存失效时间

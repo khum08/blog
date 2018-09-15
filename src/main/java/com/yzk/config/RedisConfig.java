@@ -50,7 +50,13 @@ public class RedisConfig extends CachingConfigurerSupport{
                 .build();
     }
 
-    @Bean
+    /**
+     * 系统中自动装配了两个RedisTemplate，直接注入会产生冲突，可以通过name来注入，
+     * 也可以使用@Primary注解标记这个bean优先注入
+     * @param factory
+     * @return
+     */
+    @Bean("custom")
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory factory){
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);

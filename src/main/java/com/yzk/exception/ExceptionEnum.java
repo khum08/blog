@@ -22,6 +22,7 @@ public enum ExceptionEnum {
     HTTP_TOKEN_SIGNATURE(49101, "token签名错误"),
     HTTP_TOKEN_ARGS(49102, "token参数错误"),
     HTTP_TOKEN_ERROR(49103, "token解析错误"),
+    HTTP_TOKEN_MALFORMED(49104, "token格式错误"),
     ;
     ExceptionEnum(Integer status,String message){
         this.status = status;

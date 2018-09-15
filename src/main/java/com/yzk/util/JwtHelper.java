@@ -14,6 +14,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 
@@ -34,11 +35,12 @@ public class JwtHelper {
      */
     public static Claims parseJwt(String jsonWebToken,String base64Security){
         try {
-            Claims claims = Jwts.parser()
+            return Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))
                     .parseClaimsJws(jsonWebToken)
                     .getBody();
-            return claims;
+        }catch (MalformedJwtException e){
+            throw new AccessException(ExceptionEnum.HTTP_TOKEN_MALFORMED);
         }catch (ExpiredJwtException e){
             throw new AccessException(ExceptionEnum.HTTP_TOKEN_EXPIRED);
         }catch (SignatureException e){

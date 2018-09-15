@@ -1,12 +1,15 @@
 package com.yzk.filter;
 
 import com.yzk.exception.AccessException;
+import com.yzk.util.SpringKit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.BufferedReader;
@@ -35,18 +38,30 @@ public class SignFilter extends GenericFilterBean{
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${client.app_secret}")
-    private String app_secret;
+    @Qualifier("custom")
+    @Autowired(required = false)
+    RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
+        logger.info("pass SignFilter");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String app_id = request.getParameter("app_id");
+        String app_secret = null;
+        //filter中自动装配bean会失败，手动处理
+        if (redisTemplate == null){
+            redisTemplate = (RedisTemplate)SpringKit.getBean("custom");
+        }
+        try{
+            app_secret = redisTemplate.opsForValue().get(app_id)+"";
+        }catch (Exception e){
+            throw new AccessException(49141,"Redis获取AppSecret失败");
+        }
         String clientSign = request.getParameter("sign");
         String requestBody = getRequestBody(request);
-        if (app_id==null || clientSign == null || app_id.isEmpty() || clientSign.isEmpty()){
+        if (clientSign == null || app_id.isEmpty() || clientSign.isEmpty()){
             throw new AccessException(49120, "缺少请求签名SIGN");
         }
         if ( requestBody== null || requestBody.isEmpty()) {
@@ -54,9 +69,8 @@ public class SignFilter extends GenericFilterBean{
             filterChain.doFilter(servletRequest, servletResponse);
         }else{
             //验证签名
-            System.out.println("校验了签名");
             String serverSign = computeSign(requestBody, app_secret);
-            if (serverSign.equals(clientSign)){
+            if (serverSign!=null && serverSign.equals(clientSign)){
                 filterChain.doFilter(servletRequest, servletResponse);
             }else{
                 throw new AccessException(49121, "请求签名SIGN错误");

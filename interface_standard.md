@@ -17,6 +17,7 @@ code |  messgae | data
 49003 |参数验证失败 |null
 49004 |参数绑定失败|null
 49005 |参数类型不匹配|null
+49006 |JSON_parse_error
 
 3. Token
 
@@ -26,8 +27,11 @@ code | message
 49101 | token签名错误
 49102 | token参数错误
 49103 | token解析错误
+49104 | token格式错误
 49120 | 缺少请求签名SIGN
 49121 | 请求签名SIGN错误
+49140 | 服务器Redis错误
+49141 | Redis获取AppSecret失败
 
 4. 模块
 
