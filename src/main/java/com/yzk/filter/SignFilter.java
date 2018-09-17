@@ -48,28 +48,36 @@ public class SignFilter extends GenericFilterBean{
                          FilterChain filterChain) throws IOException, ServletException {
         logger.info("pass SignFilter");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        //这个字段为了让服务器通过app_id查找到对应的app_secret
         String app_id = request.getParameter("app_id");
-        String app_secret = null;
+        //这个预留字段可以过滤例如1分钟不能请求两次的场景，可以这次请求放入Redis
+        String time = request.getParameter("time");
+        //这个字段用处理一次点击两次请求的情况
+        String rand_str = request.getParameter("rand_str");
         //filter中自动装配bean会失败，手动处理
         if (redisTemplate == null){
             redisTemplate = (RedisTemplate)SpringKit.getBean("custom");
         }
+        String app_secret = null;
         try{
             app_secret = redisTemplate.opsForValue().get(app_id)+"";
         }catch (Exception e){
-            throw new AccessException(49141,"Redis获取AppSecret失败");
+            throw new AccessException(49141,"客户端非法");
         }
         String clientSign = request.getParameter("sign");
         String requestBody = getRequestBody(request);
-        if (clientSign == null || app_id.isEmpty() || clientSign.isEmpty()){
-            throw new AccessException(49120, "缺少请求签名SIGN");
+        if (clientSign == null ||  clientSign.isEmpty() ||
+                app_id == null ||app_id.isEmpty() ||
+                time == null || time.isEmpty() ||
+                rand_str == null || rand_str.isEmpty()){
+            throw new AccessException(49120, "缺少请求签名参数");
         }
         if ( requestBody== null || requestBody.isEmpty()) {
-            //没有请求体的拦截
+            //没有请求体的不拦截
             filterChain.doFilter(servletRequest, servletResponse);
         }else{
             //验证签名
-            String serverSign = computeSign(requestBody, app_secret);
+            String serverSign = computeSign(requestBody, time, rand_str, app_secret);
             if (serverSign!=null && serverSign.equals(clientSign)){
                 filterChain.doFilter(servletRequest, servletResponse);
             }else{
@@ -100,14 +108,27 @@ public class SignFilter extends GenericFilterBean{
     }
 
     /**
+     * 测试签名算法
+     * @param arg
+     */
+    public static void main(String[] arg){
+        String jsonContent = "{\"name\":\"xiaoming\",\"ta\":\"ta\"}";
+        SignFilter signFilter = new SignFilter();
+        String s = signFilter.computeSign(jsonContent, "1234565432", "random", "secret");
+        System.out.println(s);
+    }
+
+    /**
      * 计算签名
      * @param jsonContent
      * @param appSecret
      * @return
      */
-    private String computeSign(String jsonContent, String appSecret) {
+    private String computeSign(String jsonContent, String time, String rand_str, String appSecret) {
         try {
             JSONObject jsonObject = new JSONObject(jsonContent);
+            jsonObject.put("time", time);
+            jsonObject.put("rand_str", rand_str);
             Iterator<String> keys = jsonObject.keys();
             List list = new ArrayList();
             while (keys.hasNext()) {
@@ -142,7 +163,6 @@ public class SignFilter extends GenericFilterBean{
         try {
             MessageDigest mdTemp = MessageDigest.getInstance("SHA1");
             mdTemp.update(str.getBytes("UTF-8"));
-
             byte[] md = mdTemp.digest();
             int j = md.length;
             char buf[] = new char[j*2];
