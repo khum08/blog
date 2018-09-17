@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  *     author : khum 1241367422@qq.com
  *     time   : 2018/9/13
  *     desc   : 生成唯一id
+ *              当多个表进行绑定时，不建议使用自增id，
+ *              可通过此类来生成id表，然后从中取id
  * </pre>
  */
 @RestController

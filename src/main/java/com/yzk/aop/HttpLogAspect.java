@@ -54,7 +54,7 @@ public class HttpLogAspect {
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
         logger.info("--------------------------- Response ----------------------------------");
-        logger.info("Response: " + ret);
+        logger.info(""+ret);
         logger.info("--------------------------- Response END----------------------------------");
     }
 
@@ -70,7 +70,7 @@ public class HttpLogAspect {
             Object proceed = pjp.proceed();
             long endTime = System.currentTimeMillis();
             String methodName = _getMethodName(pjp);
-            logger.info( methodName + "; time used: "+ String.valueOf(endTime-startTime));
+            logger.info( "time used: " + methodName + "; "+ String.valueOf(endTime-startTime));
             return proceed;
         } catch (Throwable throwable) {
             logger.error(throwable.getMessage());

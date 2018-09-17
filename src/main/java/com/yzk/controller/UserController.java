@@ -9,7 +9,6 @@ import com.yzk.util.JwtHelper;
 import com.yzk.util.ResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +40,7 @@ public class UserController extends BaseController {
     @Autowired
     Audience mAudience;
     @Autowired
-    PasswordEncoder mPasswordEncoder;
+    PasswordEncoder encoder;
 
     /**
      * 表单提交
@@ -59,7 +58,6 @@ public class UserController extends BaseController {
         if (queryUer == null) {
             return ResponseUtil.error(40000,"该用户不存在");
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean matches = encoder.matches(password, queryUer.getPassword());
         if (!matches){
             return ResponseUtil.error(40001, "密码错误");
@@ -67,7 +65,6 @@ public class UserController extends BaseController {
         String token = JwtHelper.createJwt(queryUer, mAudience.getClientId(),
                 mAudience.getName(), mAudience.getExpiresSecond(),
                 mAudience.getBase64Secret());
-
         return ResponseUtil.success("bearer;" + token);
     }
 
@@ -77,7 +74,7 @@ public class UserController extends BaseController {
         if(valid!=null) return valid;
         user.setAuthorities("READER;");
         logger.debug(user.toString());
-        String password = mPasswordEncoder.encode(user.getPassword());
+        String password = encoder.encode(user.getPassword());
         user.setPassword(password);
         int success = mService.register(user);
         switch (success){
